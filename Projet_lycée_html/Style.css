@@ -1,0 +1,115 @@
+body {
+    background-color: #000000;
+    color: #e0e0e0;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header h1 {
+    background-color: #3b140d;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    text-transform: uppercase;
+    font-size: 24px;
+    border-bottom: 3px solid #7a2215;
+    font-family: 'Georgia', serif; 
+}
+
+nav {
+    display: flex;
+    width: 100%;
+    background-color: #240b06;
+    border-bottom: 3px solid #7a2215;
+}
+
+nav a {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-right: 2px solid #7a2215;
+    font-size: 14px;
+}
+
+nav a:last-child {
+    border-right: none;
+}
+
+nav a:hover {
+    background-color: #7a2215;
+}
+
+main {
+    padding: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.content-box {
+    background-color: #140704;
+    padding: 20px;
+    border: 2px solid #5c180e;
+    margin-bottom: 20px;
+}
+
+.content-box h2 {
+    color: #c94028;
+    margin-top: 0;
+    border-bottom: 1px solid #5c180e;
+    padding-bottom: 5px;
+    font-family: 'Georgia', serif;
+}
+
+.avatar-img {
+    width: 120px;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    border-radius: 20px;
+    border: 2px solid #7a2215;
+}
+
+.padlet-box {
+    background-color: #140704;
+    padding: 15px;
+    border: 3px solid #5c180e;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.music-buttons {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #240b06;
+    border: 2px solid #7a2215;
+}
+
+.music-buttons a {
+    display: inline-block;
+    background-color: #7a2215;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+    border: 1px solid white;
+}
+
+.music-buttons a:hover {
+    background-color: #c94028;
+}
+
+footer {
+    margin-top: 40px;
+    background-color: #3b140d;
+    padding: 15px;
+    font-size: 14px;
+    border-top: 3px solid #7a2215;
+    text-align: center;
+    color: white;
+}
