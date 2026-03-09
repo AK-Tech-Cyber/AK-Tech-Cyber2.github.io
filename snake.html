@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Glow</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: 'Verdana', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            user-select: none;
+        }
+        
+        #score-board {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffcc00;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px #ffcc00;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #trophy-btn {
+            display: none;
+            margin-top: 10px;
+            background: #ffcc00;
+            color: #000;
+            border: 2px solid #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 0 15px #ffcc00;
+            animation: pulse 1.5s infinite;
+        }
+
+        #trophy-btn:hover {
+            background: #fff;
+            box-shadow: 0 0 25px #fff;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        #game-container { position: relative; }
+
+        canvas {
+            background: #0a0a0a;
+            border-radius: 5px;
+        }
+
+        #game-over-menu {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        #game-over-menu.show {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        #game-over-menu h2 {
+            color: #ff3300;
+            text-shadow: 0 0 15px #ff3300;
+            margin: 0 0 10px 0;
+            font-size: 32px;
+        }
+
+        #final-score { font-size: 16px; margin-bottom: 20px; }
+
+        .btn-game {
+            background: transparent;
+            border: 2px solid #ffcc00;
+            color: #ffcc00;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        .btn-game:hover { background: #ffcc00; color: #000; box-shadow: 0 0 15px #ffcc00; }
+        
+        .instructions {
+            font-size: 11px;
+            color: #888;
+            margin-top: 15px;
+            text-align: center;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="score-board">
+        <div>Score : <span id="score-val">0</span></div>
+        <button id="trophy-btn">Réclamer le Trophée 🏆</button>
+    </div>
+
+    <div id="game-container">
+        <canvas id="game" width="300" height="300"></canvas>
+        
+        <div id="game-over-menu">
+            <h2>GAME OVER</h2>
+            <div id="final-score">Vous avez mangé <span id="apples-eaten">0</span> pommes !</div>
+            <button class="btn-game" id="restart-btn">Rejouer</button>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <strong>Contrôles :</strong> Cliquez ici puis utilisez les <strong>FLÈCHES</strong> pour tourner.<br>
+        Appuyez sur <strong>ESPACE</strong> pour recommencer si vous perdez.<br>
+        <span style="color:#ffcc00;">Astuce : Atteignez 10 points pour débloquer un Trophée !</span>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('game');
+        const ctx = canvas.getContext('2d');
+        
+        const scoreVal = document.getElementById('score-val');
+        const gameOverMenu = document.getElementById('game-over-menu');
+        const applesEatenText = document.getElementById('apples-eaten');
+        const restartBtn = document.getElementById('restart-btn');
+        const trophyBtn = document.getElementById('trophy-btn');
+
+        const grid = 15;
+        let count = 0;
+        let score = 0;
+        let gameState = 'PLAYING';
+        let speedLimit = 6; 
+        let achievementSent = false;
+        
+        let snake = { x: 150, y: 150, dx: grid, dy: 0, cells: [], maxCells: 4 };
+        let apple = { x: 120, y: 120 };
+
+        function getRandomInt(min, max) { return Math.floor(Math.random() * (max - min)) + min; }
+
+        function updateScore() {
+            scoreVal.innerText = score;
+            if (score >= 10 && !achievementSent) {
+                trophyBtn.style.display = 'block';
+            }
+        }
+
+        // --- LA CORRECTION MAGIQUE EST ICI ---
+        trophyBtn.addEventListener('click', function() {
+            try {
+                // On utilise postMessage, qui n'est JAMAIS bloqué par les navigateurs !
+                window.parent.postMessage({
+                    type: 'achievement',
+                    id: 'snakemaster',
+                    title: 'Maître du Serpent',
+                    desc: 'Tu as fait 10 points au jeu Snake.',
+                    icon: '🐍'
+                }, '*');
+                
+                // On change le bouton pour montrer que c'est validé
+                trophyBtn.innerText = "Trophée Validé ! ✅";
+                trophyBtn.style.background = "#4CAF50";
+                trophyBtn.style.boxShadow = "0 0 15px #4CAF50";
+                trophyBtn.style.color = "#fff";
+                trophyBtn.style.animation = "none";
+                achievementSent = true;
+                
+                // On redonne le focus au jeu (pour ne pas bloquer les flèches directionnelles)
+                canvas.focus();
+            } catch(e) {
+                console.log("Erreur de communication : " + e);
+            }
+        });
+
+        function gameOver() {
+            gameState = 'GAMEOVER';
+            applesEatenText.innerText = score;
+            gameOverMenu.classList.add('show');
+        }
+
+        function restartGame() {
+            snake.x = 150; snake.y = 150; snake.cells = []; 
+            snake.maxCells = 4; snake.dx = grid; snake.dy = 0;
+            apple.x = getRandomInt(0, 20) * grid; apple.y = getRandomInt(0, 20) * grid;
+            score = 0;
+            speedLimit = 6;
+            updateScore();
+            gameState = 'PLAYING';
+            gameOverMenu.classList.remove('show');
+        }
+
+        restartBtn.addEventListener('click', restartGame);
+
+        function loop() {
+            requestAnimationFrame(loop);
+            if (gameState === 'GAMEOVER') return; 
+            if (++count < speedLimit) return; 
+            count = 0;
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            
+            snake.x += snake.dx; 
+            snake.y += snake.dy;
+
+            if (snake.x < 0) snake.x = canvas.width - grid;
+            else if (snake.x >= canvas.width) snake.x = 0;
+            if (snake.y < 0) snake.y = canvas.height - grid;
+            else if (snake.y >= canvas.height) snake.y = 0;
+
+            snake.cells.unshift({x: snake.x, y: snake.y});
+            if (snake.cells.length > snake.maxCells) snake.cells.pop();
+
+            if (snake.x === apple.x && snake.y === apple.y) {
+                snake.maxCells++;
+                score++;
+                updateScore();
+                if(score % 5 === 0 && speedLimit > 2) speedLimit--; 
+                
+                let validApple = false;
+                while(!validApple) {
+                    apple.x = getRandomInt(0, 20) * grid;
+                    apple.y = getRandomInt(0, 20) * grid;
+                    validApple = true;
+                    for(let cell of snake.cells) {
+                        if(cell.x === apple.x && cell.y === apple.y) validApple = false;
+                    }
+                }
+            }
+
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = "#ffcc00";
+            ctx.fillStyle = '#ffcc00';
+            ctx.fillRect(apple.x, apple.y, grid-1, grid-1);
+
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = "#ff3300";
+            ctx.fillStyle = '#ff3300';
+
+            snake.cells.forEach(function(cell, index) {
+                ctx.fillRect(cell.x, cell.y, grid-1, grid-1);
+                for (let i = index + 1; i < snake.cells.length; i++) {
+                    if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+                        gameOver();
+                    }
+                }
+            });
+            ctx.shadowBlur = 0; 
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight", "Space"].indexOf(e.code) > -1) { 
+                e.preventDefault(); 
+            }
+            if (gameState === 'GAMEOVER') {
+                if(e.code === 'Space' || e.code === 'Enter') restartGame();
+                return;
+            }
+            if(e.code === 'ArrowLeft' && snake.dx === 0) { snake.dx = -grid; snake.dy = 0; }
+            else if(e.code === 'ArrowUp' && snake.dy === 0) { snake.dy = -grid; snake.dx = 0; }
+            else if(e.code === 'ArrowRight' && snake.dx === 0) { snake.dx = grid; snake.dy = 0; }
+            else if(e.code === 'ArrowDown' && snake.dy === 0) { snake.dy = grid; snake.dx = 0; }
+        });
+        
+        requestAnimationFrame(loop);
+    </script>
+</body>
+</html>

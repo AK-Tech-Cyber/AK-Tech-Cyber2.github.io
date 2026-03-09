@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil - Mon site</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- CORRECTION DU CARROUSEL INFINI (BOUCLE PARFAITE) --- */
+        .carousel-container {
+            width: 100%; 
+            overflow: hidden; 
+            background-color: rgba(10, 10, 10, 0.6);
+            padding: 40px 0; 
+            margin: 40px 0; 
+            display: flex;
+        }
+        
+        .carousel-track {
+            display: flex;
+            width: max-content;
+            /* Animation fluide et continue sur 30 secondes */
+            animation: scrollCarousel 30s linear infinite !important;
+        }
+        
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Les deux boîtes identiques qui empêchent le saut au moment du reset */
+        .slide-set {
+            display: flex;
+            flex-shrink: 0;
+        }
+
+        .slide-set img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            margin: 0 15px;
+            border-radius: 15px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .slide-set img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(255, 204, 0, 0.4);
+            cursor: none;
+        }
+
+        @keyframes scrollCarousel {
+            0% { transform: translateX(0); }
+            /* Décalage exact de la taille d'une boîte .slide-set */
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body>
+    <div id="toast-container"></div>
+    <div id="flashlight-overlay"></div>
+    <canvas id="particles-canvas"></canvas>
+    
+    <div id="yt-container" style="display:none;"></div>
+
+    <a href="secret.html" style="position:fixed; bottom:0; left:0; width:60px; height:60px; z-index:99999; cursor:none;" title="Chut..."></a>
+
+    <div id="achievements-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2 style="margin-top:0;">Mes Trophées</h2>
+            <ul class="ach-list" id="ach-list"></ul>
+                <li class="ach-item" id="ach-gamer"><div style="font-size:30px">🎮</div><div><strong>Gamer Légendaire</strong><br>Tu as entré le code secret.</div></li>
+                <li class="ach-item" id="ach-musique"><div style="font-size:30px">🎧</div><div><strong>Mélomane</strong><br>Tu as écouté "Endless Sunrise".</div></li>
+                <li class="ach-item" id="ach-ninja"><div style="font-size:30px">🐱‍👤</div><div><strong>Maître Shinobi</strong><br>Tu as découvert l'art occulte.</div></li>
+                <li class="ach-item" id="ach-theme"><div style="font-size:30px">🌗</div><div><strong>Oiseau de Nuit</strong><br>Tu as changé l'ambiance du site.</div></li>
+                <li class="ach-item" id="ach-snakemaster"><div style="font-size:30px">🐍</div><div><strong>Maître du Serpent</strong><br>Tu as fait 10 points au jeu Snake.</div></li>
+                <li class="ach-item" id="ach-hacker"><div style="font-size:30px">💻</div><div><strong>Apprenti Hacker</strong><br>Tu as inspecté les entrailles du code.</div></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="loader"><div class="loader-icon bounce-loader">💻</div><div class="loader-fact" id="loaderFact"></div></div>
+    <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <nav id="navbar">
+        <a href="index.html">Accueil</a>
+        <a href="bujinkan.html">Mes activités</a>
+        <a href="chats.html">Les chats</a>
+        <a href="reve.html">Mes passions</a>
+        <button id="themeToggle" class="nav-btn" title="Mode Zen">🌙</button>
+        <button id="discretionBtn" class="nav-btn" title="Mode Discrétion (Lampe Torche)">🔦</button>
+        <button id="musicToggle" class="nav-btn" title="Musique d'ambiance">🔇 OFF</button>
+        <button id="achievementsBtn" class="nav-btn" title="Voir les succès">🏆 Succès</button>
+    </nav>
+
+    <header id="titre-parallax">
+        <div class="typing-container" data-text="Bienvenue sur mon site" data-typo="Bienveneu">
+            <span class="hidden-text">Bienvenue sur mon site</span>
+            <div class="typing-content"><span class="typing-text"></span><span class="cursor">|</span></div>
+        </div>
+    </header>
+
+    <div class="carousel-container">
+        <div class="carousel-track">
+            <div class="slide-set">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300&h=200&fit=crop" alt="Chat 1">
+                <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=300&h=200&fit=crop" alt="Arts Martiaux">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&h=200&fit=crop" alt="Gaming">
+                <img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=300&h=200&fit=crop" alt="Chat 2">
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=300&h=200&fit=crop" alt="Anime">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop" alt="Setup PC">
+                <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=300&h=200&fit=crop" alt="Chat 3">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=200&fit=crop" alt="Jeu Retro">
+            </div>
+            <div class="slide-set">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=300&h=200&fit=crop" alt="Chat 1">
+                <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=300&h=200&fit=crop" alt="Arts Martiaux">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=300&h=200&fit=crop" alt="Gaming">
+                <img src="https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=300&h=200&fit=crop" alt="Chat 2">
+                <img src="https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=300&h=200&fit=crop" alt="Anime">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=300&h=200&fit=crop" alt="Setup PC">
+                <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=300&h=200&fit=crop" alt="Chat 3">
+                <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=300&h=200&fit=crop" alt="Jeu Retro">
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <h2>Présentation détaillée du projet</h2>
+        <p>Ce site web a été intégralement pensé, structuré et développé dans le cadre de mon projet d'informatique de niveau <strong>seconde</strong>. L'objectif de cet exercice n'était pas seulement de valider des acquis techniques, mais surtout de créer un espace personnel sur mesure qui reflète parfaitement ma personnalité, mes goûts et mes compétences.</p>
+        
+        <p>Le développement web moderne repose sur trois langages fondamentaux que j'ai pris soin d'exploiter ici. Tout d'abord, le <strong>HTML (HyperText Markup Language)</strong> m'a permis de structurer mes contenus, de hiérarchiser les titres et d'organiser les différents médias. C'est le squelette du site. Ensuite, le <strong>CSS (Cascading Style Sheets)</strong> a été essentiel pour concevoir tout le design : du choix des couleurs sombres et néon pour cette ambiance "cyberpunk", jusqu'aux animations complexes comme l'effet de parallaxe au défilement ou le carrousel infini.</p>
+        
+        <p>Enfin, le <strong>JavaScript</strong> représente la véritable "matière grise" de mon site. C'est grâce à la programmation algorithmique que j'ai pu intégrer des éléments interactifs poussés : un curseur qui s'aimante aux images avec un effet 3D, un système de succès (achievements) à débloquer en explorant la page, des particules flottantes calculées en temps réel en arrière-plan, et même un lecteur de musique intégré.</p>
+
+        <h2>Exploration de mes centres d'intérêt</h2>
+        <p>J'ai divisé ce portfolio interactif en plusieurs sections distinctes pour vous présenter les sujets qui m'animent au quotidien. N'hésitez pas à utiliser le menu de navigation situé en haut de votre écran pour voyager à travers ces différents univers :</p>
+        <ul>
+            <li><strong>Mes activités sportives :</strong> Une plongée dans l'univers martial du Bujinkan Ninjutsu, une discipline traditionnelle japonaise qui forge autant l'agilité physique que la concentration de l'esprit face aux épreuves.</li>
+            <li><strong>L'univers des félins :</strong> Une page dédiée aux chats. Bien au-delà des vidéos amusantes sur internet, j'y aborde la biologie de ces prédateurs, leur impressionnant sens de l'équilibre et le mystère de leur ronronnement.</li>
+            <li><strong>Mes passions technologiques :</strong> Un espace "100% geek" où je partage mon amour pour le hardware (l'assemblage de composants informatiques) et la programmation, avec un mini-jeu rétro jouable directement dans la page !</li>
+        </ul>
+
+        <h2>Les secrets du site</h2>
+        <p>Pour rendre la visite plus interactive et récompenser les plus curieux, j'ai dissimulé de nombreux <strong>easter eggs</strong> (des petits secrets cachés) dans les différentes pages. De l'utilisation de combinaisons de touches sur le clavier à l'activation de boutons mystères, il vous faudra fouiller pour débloquer tous les trophées de mon système de succès. Saurez-vous tous les trouver ?</p>
+        
+        <p>Pour en savoir plus sur les technologies utilisées, vous pouvez consulter la documentation officielle du <a href="https://fr.wikipedia.org/wiki/Hypertext_Markup_Language" target="_blank" style="color: var(--primary-color);">HTML sur Wikipédia</a>.</p>
+
+        <div style="background-color: rgba(255, 255, 255, 0.05); border-left: 4px solid var(--secondary-color); padding: 15px; margin: 25px 0; border-radius: 0 10px 10px 0; font-size: 0.9em; line-height: 1.6;">
+            <strong>💡 Note sur la conception de ce site :</strong><br><br>
+            Pour ce projet, j'ai d'abord rédigé tout le contenu et structuré mes pages HTML. Pour le design, j'ai sélectionné mes couleurs sur <a href="https://htmlcolorcodes.com/fr/" target="_blank" style="color: var(--secondary-color); text-decoration: none;">htmlcolorcodes.com</a> et je me suis inspiré du fichier CSS du cours pour appliquer mes styles correctement. N'ayant pas encore étudié le JavaScript, j'ai fait appel à l'IA Gemini pour m'aider à coder les fonctionnalités interactives (trophées, animations, code secret...) et pour m'aider à résoudre les différents bugs que j'ai rencontrés pendant la création du site au niveau du CSS.<br><br>
+            
+            Pour construire mon site, j'ai suivi la structure des fichiers que nous avons étudiés en cours. J'ai créé 4 pages HTML différentes pour bien séparer mes thèmes. Sur chaque page, j'ai utilisé des balises simples pour organiser mon contenu :
+            
+            <ul style="margin-top: 10px; margin-bottom: 10px; padding-left: 20px;">
+                <li>La balise <strong>&lt;nav&gt;</strong> : elle me sert à créer le menu tout en haut pour que l'on puisse cliquer.</li>
+                <li>La balise <strong>&lt;a&gt;</strong> : c'est ce qui m'a permis de faire les liens entre mes 4 pages.</li>
+                <li>Les balises de titres <strong>&lt;h1&gt;</strong> et <strong>&lt;h2&gt;</strong> : pour que mes titres soient bien visibles et rangés dans l'ordre.</li>
+                <li>La balise <strong>&lt;p&gt;</strong> : pour écrire mes textes et mes explications.</li>
+            </ul>
+            
+            En gardant le même menu de navigation en tête de page sur chaque fichier, le site reste facile à utiliser, exactement comme dans les exemples vus en classe.
+        </div>
+        <p class="indice-gamer">Indice caché pour les vrais gamers : ↑ ↑ ↓ ↓ ← → B A...</p>
+    </main>
+
+    <footer>
+        <p><span class="secret-btn" title="Double-cliquez pour une surprise !">©</span> Site réalisé par un élève de seconde</p>
+    </footer>
+
+    <button id="backToTop" title="Retour en haut">⬆️</button>
+
+    <script>
+     const facts = ["Le saviez-vous ?...<br><br>Le HTML a été inventé en 1989 par Tim Berners-Lee.", "Le saviez-vous ?...<br><br>Les chats partagent environ 95,6 % de leur ADN avec les tigres.", "Le saviez-vous ?...<br><br>Le mot 'Ninja' se prononce aussi 'Shinobi' en japonais.", "Le saviez-vous ?...<br><br>Le premier jeu vidéo grand public, Pong, a été créé en 1972.", "Le saviez-vous ?...<br><br>Le premier disque dur inventé en 1956 pesait plus d'une tonne !", "Le saviez-vous ?...<br><br>Le code Konami (Haut, Haut, Bas...) est le code de triche le plus célèbre du monde.", "Le saviez-vous ?...<br><br>Le Bujinkan regroupe 9 écoles anciennes d'arts martiaux.", "Le saviez-vous ?...<br><br>YouTube a été créé par 3 anciens employés de PayPal.", "Le saviez-vous ?...<br><br>Il y a des trophées cachés un peu partout sur ce site...", "Le saviez-vous ?...<br><br>La première souris d'ordinateur inventée en 1964 était en bois."]; document.getElementById("loaderFact").innerHTML = facts[Math.floor(Math.random() * facts.length)]; window.addEventListener("load", () => { setTimeout(() => { document.getElementById("loader").classList.add("hidden"); }, 2000); });
+        const cursor = document.getElementById('customCursor'); let mouse = { x: null, y: null }; document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; mouse.x = e.clientX; mouse.y = e.clientY; document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px'); document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px'); }); document.querySelectorAll('a, button, img, .secret-shinobi').forEach(el => { el.addEventListener('mouseenter', () => cursor.classList.add('hover')); el.addEventListener('mouseleave', () => cursor.classList.remove('hover')); });
+        document.querySelectorAll('img:not(.profile-pic), video').forEach(el => { el.addEventListener('mousemove', (e) => { const rect = el.getBoundingClientRect(); const x = e.clientX - rect.left, y = e.clientY - rect.top; const centerX = rect.width / 2, centerY = rect.height / 2; const rotateX = ((y - centerY) / centerY) * -15; const rotateY = ((x - centerX) / centerX) * 15; el.style.transform = `perspective(1000px) scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; }); el.addEventListener('mouseleave', () => el.style.transform = `perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)`); });
+        let lastScrollTop = 0; const navbar = document.getElementById("navbar"); const backToTop = document.getElementById("backToTop"); const parallaxHeader = document.getElementById("titre-parallax"); window.addEventListener("scroll", function() { let scrollTop = window.pageYOffset || document.documentElement.scrollTop; if (scrollTop > lastScrollTop && scrollTop > 50) navbar.style.top = "-80px"; else navbar.style.top = "0"; lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; let height = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById("progressBar").style.width = ((scrollTop / height) * 100) + "%"; if (scrollTop > 300) backToTop.classList.add("show"); else backToTop.classList.remove("show"); if(parallaxHeader) parallaxHeader.style.transform = 'translateY(' + (scrollTop * 0.4) + 'px)'; }); backToTop.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'})); 
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { if (entry.target.classList.contains('parchemin-text')) entry.target.classList.add('visible'); else entry.target.classList.add('slide-in'); } else { if (entry.target.classList.contains('parchemin-text')) entry.target.classList.remove('visible'); else entry.target.classList.remove('slide-in'); } }); }, { threshold: 0.1 }); document.querySelectorAll('h2, h3').forEach(el => { el.classList.add('glitch-hover'); observer.observe(el); }); document.querySelectorAll('main p:not(.indice-gamer), main ul').forEach(el => { el.classList.add('parchemin-text'); observer.observe(el); });
+        async function typeWriterWithTypo() { const container = document.querySelector('.typing-container'); if(!container) return; const typingText = container.querySelector('.typing-text'); const finalWord = container.getAttribute('data-text'); const typoWord = container.getAttribute('data-typo'); const wait = ms => new Promise(res => setTimeout(res, ms)); await wait(2700); for(let i=0; i < typoWord.length; i++) { typingText.textContent += typoWord[i]; await wait(30 + Math.random()*40); } await wait(300); let commonLen = 0; while(commonLen < typoWord.length && typoWord[commonLen] === finalWord[commonLen]) commonLen++; while(typingText.textContent.length > commonLen) { typingText.textContent = typingText.textContent.slice(0, -1); await wait(40); } await wait(200); for(let i=commonLen; i < finalWord.length; i++) { typingText.textContent += finalWord[i]; await wait(30 + Math.random()*40); } } window.onload = typeWriterWithTypo;
+        const canvas = document.getElementById('particles-canvas'); if(canvas) { const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight; let particlesArray = []; class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.speedX = Math.random() * 1 - 0.5; this.speedY = Math.random() * 1 - 0.5; } update() { this.x += this.speedX; this.y += this.speedY; let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = Math.sqrt(dx*dx + dy*dy); if (distance < 120) { this.x -= dx/15; this.y -= dy/15; } if(this.x > canvas.width || this.x < 0) this.speedX = -this.speedX; if(this.y > canvas.height || this.y < 0) this.speedY = -this.speedY; } draw() { ctx.fillStyle = 'rgba(255, 204, 0, 0.4)'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } for(let i=0; i<80; i++) particlesArray.push(new Particle()); function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); particlesArray.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); } animateParticles(); window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }); }
+        
+        window.unlockAchievement = function(id, title, desc, icon) { 
+            if (sessionStorage.getItem('ach_' + id)) return; 
+            sessionStorage.setItem('ach_' + id, 'true'); 
+            checkAchievements(); 
+            
+            // --- NOUVEAU : LE SON STEAM DES SUCCÈS ---
+            const achievementSound = new Audio('https://www.myinstants.com/media/sounds/steam-achievement-unlocked.mp3');
+            achievementSound.volume = 0.5; // Volume à 50% pour que ce soit agréable
+            achievementSound.play().catch(e => console.log("Lecture du son bloquée par le navigateur :", e));
+            // -----------------------------------------
+
+            let container = document.getElementById('toast-container'); 
+            if(!container) return; 
+            
+            const toast = document.createElement('div'); 
+            toast.className = 'achievement-toast'; 
+            toast.innerHTML = `<div class="ach-icon">${icon}</div><div class="ach-text"><h4>Succès Déverrouillé</h4><p><strong>${title}</strong> : ${desc}</p></div>`; 
+            container.appendChild(toast); 
+            
+            setTimeout(() => toast.classList.add('show'), 100); 
+            setTimeout(() => { 
+                toast.classList.remove('show'); 
+                setTimeout(() => toast.remove(), 500); 
+            }, 5000); 
+        }
+
+        function checkAchievements() { 
+            document.querySelectorAll('.ach-item').forEach(el => { 
+                if (el.id && el.id.includes('-')) {
+                    const id = el.id.split('-')[1]; 
+                    if(sessionStorage.getItem('ach_' + id)) el.classList.add('unlocked'); 
+                }
+            }); 
+        }
+
+        const achModal = document.getElementById('achievements-modal'); 
+        document.getElementById('achievementsBtn').addEventListener('click', () => { checkAchievements(); achModal.classList.add('show'); }); 
+        document.getElementById('closeModal').addEventListener('click', () => { achModal.classList.remove('show'); });
+        
+        const themeToggle = document.getElementById('themeToggle'); 
+        themeToggle.addEventListener('click', () => { document.body.classList.toggle('light-mode'); themeToggle.innerText = document.body.classList.contains('light-mode') ? '☀️' : '🌙'; unlockAchievement('theme', 'Oiseau de Nuit', 'Tu as changé le thème du site.', '🌗'); }); 
+        const discretionBtn = document.getElementById('discretionBtn'); 
+        if(discretionBtn) discretionBtn.addEventListener('click', () => { document.body.classList.toggle('discretion-mode'); }); 
+        const secretBtn = document.querySelector('.secret-btn'); 
+        if (secretBtn) secretBtn.addEventListener('dblclick', () => document.body.classList.toggle('cyberpunk-mode'));
+        
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'b', 'a']; let konamiIndex = 0; document.addEventListener('keydown', (e) => { if (e.key === konamiCode[konamiIndex] || e.key.toLowerCase() === konamiCode[konamiIndex]) { konamiIndex++; if (konamiIndex === konamiCode.length) { unlockAchievement('gamer', 'Gamer Légendaire', 'Le code secret est activé !', '🎮'); const popup = document.createElement('div'); popup.className = 'konami-popup show'; popup.innerHTML = `<h2>MAITRISE ABSOLUE !</h2><p>Tu as débloqué le secret du Gamer.</p><img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Cat Hacker">`; document.body.appendChild(popup); setTimeout(() => { popup.classList.remove('show'); setTimeout(() => popup.remove(), 500); }, 5000); konamiIndex = 0; } } else { konamiIndex = 0; } });
+
+        // --- MUSIQUE INVISIBLE (BING LOFI SANS PUB) ---
+        const musicBtn = document.getElementById('musicToggle'); 
+        let isPlaying = false; 
+        
+        if(musicBtn) { 
+            musicBtn.addEventListener('click', () => { 
+                const ytContainer = document.getElementById('yt-container'); 
+                if(isPlaying) { 
+                    ytContainer.innerHTML = ''; 
+                    musicBtn.innerText = '🔇 OFF'; 
+                } else { 
+                    ytContainer.innerHTML = '<iframe width="400" height="400" src="https://www.bing.com/videos/riverview/relatedvideo?q=lofi%20music%20background%20no%20copyright&mid=35CC8AE9A3AD137B7F6C35CC8AE9A3AD137B7F6C&ajaxhist=0&autoplay=1" frameborder="0" allow="autoplay" style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;"></iframe>'; 
+                    musicBtn.innerText = '🔊 ON'; 
+                    
+                    if (typeof unlockAchievement === 'function') {
+                        unlockAchievement('musique', 'Mélomane', 'Tu as activé la musique.', '🎧'); 
+                    }
+                } 
+                isPlaying = !isPlaying; 
+            }); 
+        }
+
+        // --- EASTER EGG : APPRENTI HACKER ---
+        // Le texte qui s'affichera uniquement dans la console pour la prof (ou les curieux)
+        console.log("%c STOP ! ✋ ", "color: red; font-size: 40px; font-weight: bold; -webkit-text-stroke: 1px black;");
+        console.log("%cSi tu lis ceci, c'est que tu inspectes mon code... Pas mal ! ", "color: #00ff00; font-size: 16px; font-family: monospace;");
+        console.log("%cUn succès vient d'être déverrouillé sur le site. ", "color: white; background: #222; padding: 5px;");
+
+        // ON DÉTECTE L'OUVERTURE DE LA CONSOLE VIA LE CLAVIER
+        window.addEventListener('keydown', function(event) {
+            // Si l'utilisateur appuie sur F12 ou Ctrl+Shift+I (les raccourcis pour ouvrir le code)
+            if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'i'))) {
+                setTimeout(() => {
+                    if (typeof unlockAchievement === 'function') {
+                        unlockAchievement('hacker', 'Apprenti Hacker', 'Tu as découvert le message secret dans la console.', '💻');
+                    }
+                }, 500); // Petit délai le temps que la fenêtre s'ouvre
+            }
+        });
+
+    </script>
+</body>
+</html>

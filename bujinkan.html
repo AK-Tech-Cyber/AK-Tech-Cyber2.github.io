@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mes activités</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="toast-container"></div>
+    <div id="flashlight-overlay"></div>
+    <canvas id="particles-canvas"></canvas>
+    <div id="yt-container" style="display:none;"></div>
+
+    <div id="achievements-modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModal">&times;</span>
+            <h2 style="margin-top:0;">Mes Trophées</h2>
+            <ul class="ach-list" id="ach-list">
+                <li class="ach-item" id="ach-gamer"><div style="font-size:30px">🎮</div><div><strong>Gamer Légendaire</strong><br>Tu as entré le code secret.</div></li>
+                <li class="ach-item" id="ach-musique"><div style="font-size:30px">🎧</div><div><strong>Mélomane</strong><br>Tu as écouté "Endless Sunrise".</div></li>
+                <li class="ach-item" id="ach-ninja"><div style="font-size:30px">🐱‍👤</div><div><strong>Maître Shinobi</strong><br>Tu as découvert l'art occulte.</div></li>
+                <li class="ach-item" id="ach-theme"><div style="font-size:30px">🌗</div><div><strong>Oiseau de Nuit</strong><br>Tu as changé l'ambiance du site.</div></li>
+                <li class="ach-item" id="ach-snakemaster"><div style="font-size:30px">🐍</div><div><strong>Maître du Serpent</strong><br>Tu as fait 10 points au jeu Snake.</div></li>
+                <li class="ach-item" id="ach-hacker"><div style="font-size:30px">💻</div><div><strong>Apprenti Hacker</strong><br>Tu as inspecté les entrailles du code.</div></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="loader"><div class="loader-icon spin-loader">🌀</div><div class="loader-fact" id="loaderFact"></div></div>
+    <div class="progress-container"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="custom-cursor" id="customCursor"></div>
+
+    <nav id="navbar">
+        <a href="index.html">Accueil</a>
+        <a href="bujinkan.html">Mes activités</a>
+        <a href="chats.html">Les chats</a>
+        <a href="reve.html">Mes passions</a>
+        <button id="themeToggle" class="nav-btn" title="Mode Zen">🌙</button>
+        <button id="discretionBtn" class="nav-btn" title="Mode Discrétion (Lampe Torche)">🔦</button>
+        <button id="musicToggle" class="nav-btn" title="Musique d'ambiance">🔇 OFF</button>
+        <button id="achievementsBtn" class="nav-btn" title="Voir les succès">🏆 Succès</button>
+    </nav>
+
+    <header id="titre-parallax">
+        <div class="typing-container" data-text="Mes activités" data-typo="Mes activitées">
+            <span class="hidden-text">Mes activités</span>
+            <div class="typing-content"><span class="typing-text"></span><span class="cursor">|</span></div>
+        </div>
+    </header>
+
+    <main>
+        <div class="media-container">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.k6E797u2wYlbwvkxXFaBqQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" class="profile-pic"
+        </div>
+        
+        <p>En dehors des cours et de mes moments passés derrière un écran à jouer, j'ai absolument besoin de me dépenser. Ma principale activité est la pratique d'un art martial japonais fascinant qui demande autant de rigueur physique que de concentration mentale : le Bujinkan.</p>
+
+        <h2>Origines et fondements d'un art ancien</h2>
+        <p>Le Bujinkan Ninjutsu n'est pas qu'un simple sport de combat de contact. C'est un <strong>art martial japonais traditionnel</strong> extrêmement riche, imprégné d'une histoire séculaire. Fondé par le grand maître (Sôke) Masaaki Hatsumi au Japon, il regroupe et préserve l'enseignement de neuf écoles (les "Ryūha") très anciennes. Parmi elles, on compte trois écoles historiques de ninjutsu (l'art de l'espionnage et de la stratégie des ninjas) et six écoles de samouraïs traditionnels.</p>
+        <p>L'étude au sein du dojo va bien au-delà de la simple distribution de coups. Elle inclut des techniques d'esquive millimétrées, l'art de la chute et de la roulade (Taijutsu) pour ne jamais se blesser, des clés articulaires redoutables, mais aussi des moments dédiés à la méditation et à la maîtrise absolue de la respiration sous stress.</p>
+
+        <div class="media-container">
+            <img src="https://images.unsplash.com/photo-1555597673-b21d5c935865?w=600&h=400&fit=crop" alt="Un pratiquant de Bujinkan">
+        </div>
+
+        <h2>L'adaptation constante et l'Arsenal</h2>
+        <p>Contrairement aux sports modernes (comme le judo ou le karaté sportif), le but du Bujinkan n'est pas de vaincre un adversaire sur un tatami pour obtenir une médaille ou un trophée. Il n'y a d'ailleurs aucune compétition officielle au sein de cet art. L'objectif absolu est d'apprendre à <strong>survivre</strong> en situation réelle. L'entraînement met en avant le respect des partenaires, la discipline de fer, la biomécanique et la fluidité des mouvements.</p>
+        <p>Il s'agit de s'adapter constamment à son environnement, qu'il soit sombre, restreint (comme un couloir étroit) ou accidenté. Nous apprenons également le maniement d'un vaste éventail d'armes traditionnelles : le célèbre sabre japonais (Katana), le bâton long (Bō), la corde, ou encore les fameux shurikens (les étoiles de jet).</p>
+
+        <h2>Le savoir occulte du Shinobi</h2>
+        <p>Le folklore populaire a souvent déformé la réalité du ninja en le transformant en assassin magique. La réalité est bien plus stratégique.</p>
+        <div class="instruction-secret">&#8595; Passe la souris sur le texte flouté pour le lire ! &#8595;</div>
+        <div class="secret-shinobi">
+            Technique Secrète : L'art du Shinobi repose avant tout sur l'invisibilité (Hensojutsu), la psychologie et l'intelligence tactique. L'affrontement physique direct est toujours le dernier recours quand toutes les autres ruses ont échoué. Le vrai guerrier est celui qui gagne le combat avant même de l'avoir commencé, par l'illusion et la parfaite maîtrise de l'information.
+        </div>
+    </main>
+
+    <a href="secret.html" style="position:fixed; bottom:0; left:0; width:60px; height:60px; z-index:99999; cursor:none;" title="Chut..."></a>
+
+    <footer><p><span class="secret-btn" title="Double-cliquez !">©</span> Projet HTML - Seconde</p></footer>
+    <button id="backToTop" title="Retour en haut">⬆️</button>
+
+    <script>
+        const facts = ["Le saviez-vous ?...<br><br>Le HTML a été inventé en 1989 par Tim Berners-Lee.", "Le saviez-vous ?...<br><br>Les chats partagent environ 95,6 % de leur ADN avec les tigres.", "Le saviez-vous ?...<br><br>Le mot 'Ninja' se prononce aussi 'Shinobi' en japonais.", "Le saviez-vous ?...<br><br>Le premier jeu vidéo grand public, Pong, a été créé en 1972.", "Le saviez-vous ?...<br><br>Le premier disque dur inventé en 1956 pesait plus d'une tonne !", "Le saviez-vous ?...<br><br>Le code Konami (Haut, Haut, Bas...) est le code de triche le plus célèbre du monde.", "Le saviez-vous ?...<br><br>Le Bujinkan regroupe 9 écoles anciennes d'arts martiaux.", "Le saviez-vous ?...<br><br>YouTube a été créé par 3 anciens employés de PayPal.", "Le saviez-vous ?...<br><br>Il y a des trophées cachés un peu partout sur ce site...", "Le saviez-vous ?...<br><br>La première souris d'ordinateur inventée en 1964 était en bois."]; document.getElementById("loaderFact").innerHTML = facts[Math.floor(Math.random() * facts.length)]; window.addEventListener("load", () => { setTimeout(() => { document.getElementById("loader").classList.add("hidden"); }, 2000); });
+        const cursor = document.getElementById('customCursor'); let mouse = { x: null, y: null }; document.addEventListener('mousemove', e => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; mouse.x = e.clientX; mouse.y = e.clientY; document.documentElement.style.setProperty('--mouse-x', e.clientX + 'px'); document.documentElement.style.setProperty('--mouse-y', e.clientY + 'px'); }); document.querySelectorAll('a, button, img, .secret-shinobi').forEach(el => { el.addEventListener('mouseenter', () => cursor.classList.add('hover')); el.addEventListener('mouseleave', () => cursor.classList.remove('hover')); });
+        document.querySelectorAll('img:not(.profile-pic), video').forEach(el => { el.addEventListener('mousemove', (e) => { const rect = el.getBoundingClientRect(); const x = e.clientX - rect.left, y = e.clientY - rect.top; const centerX = rect.width / 2, centerY = rect.height / 2; const rotateX = ((y - centerY) / centerY) * -15; const rotateY = ((x - centerX) / centerX) * 15; el.style.transform = `perspective(1000px) scale(1.05) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; }); el.addEventListener('mouseleave', () => el.style.transform = `perspective(1000px) scale(1) rotateX(0deg) rotateY(0deg)`); });
+        let lastScrollTop = 0; const navbar = document.getElementById("navbar"); const backToTop = document.getElementById("backToTop"); const parallaxHeader = document.getElementById("titre-parallax"); window.addEventListener("scroll", function() { let scrollTop = window.pageYOffset || document.documentElement.scrollTop; if (scrollTop > lastScrollTop && scrollTop > 50) navbar.style.top = "-80px"; else navbar.style.top = "0"; lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; let height = document.documentElement.scrollHeight - document.documentElement.clientHeight; document.getElementById("progressBar").style.width = ((scrollTop / height) * 100) + "%"; if (scrollTop > 300) backToTop.classList.add("show"); else backToTop.classList.remove("show"); if(parallaxHeader) parallaxHeader.style.transform = 'translateY(' + (scrollTop * 0.4) + 'px)'; }); backToTop.addEventListener("click", () => window.scrollTo({top: 0, behavior: 'smooth'})); 
+        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { if (entry.target.classList.contains('parchemin-text')) entry.target.classList.add('visible'); else entry.target.classList.add('slide-in'); } else { if (entry.target.classList.contains('parchemin-text')) entry.target.classList.remove('visible'); else entry.target.classList.remove('slide-in'); } }); }, { threshold: 0.1 }); document.querySelectorAll('h2, h3').forEach(el => { el.classList.add('glitch-hover'); observer.observe(el); }); document.querySelectorAll('main p:not(.indice-gamer), main ul').forEach(el => { el.classList.add('parchemin-text'); observer.observe(el); });
+        async function typeWriterWithTypo() { const container = document.querySelector('.typing-container'); if(!container) return; const typingText = container.querySelector('.typing-text'); const finalWord = container.getAttribute('data-text'); const typoWord = container.getAttribute('data-typo'); const wait = ms => new Promise(res => setTimeout(res, ms)); await wait(2700); for(let i=0; i < typoWord.length; i++) { typingText.textContent += typoWord[i]; await wait(30 + Math.random()*40); } await wait(300); let commonLen = 0; while(commonLen < typoWord.length && typoWord[commonLen] === finalWord[commonLen]) commonLen++; while(typingText.textContent.length > commonLen) { typingText.textContent = typingText.textContent.slice(0, -1); await wait(40); } await wait(200); for(let i=commonLen; i < finalWord.length; i++) { typingText.textContent += finalWord[i]; await wait(30 + Math.random()*40); } } window.onload = typeWriterWithTypo;
+        const canvas = document.getElementById('particles-canvas'); if(canvas) { const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth; canvas.height = window.innerHeight; let particlesArray = []; class Particle { constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 3 + 1; this.speedX = Math.random() * 1 - 0.5; this.speedY = Math.random() * 1 - 0.5; } update() { this.x += this.speedX; this.y += this.speedY; let dx = mouse.x - this.x; let dy = mouse.y - this.y; let distance = Math.sqrt(dx*dx + dy*dy); if (distance < 120) { this.x -= dx/15; this.y -= dy/15; } if(this.x > canvas.width || this.x < 0) this.speedX = -this.speedX; if(this.y > canvas.height || this.y < 0) this.speedY = -this.speedY; } draw() { ctx.fillStyle = 'rgba(255, 204, 0, 0.4)'; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); } } for(let i=0; i<80; i++) particlesArray.push(new Particle()); function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); particlesArray.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animateParticles); } animateParticles(); window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }); }
+        window.unlockAchievement = function(id, title, desc, icon) { if (sessionStorage.getItem('ach_' + id)) return; sessionStorage.setItem('ach_' + id, 'true'); checkAchievements(); let container = document.getElementById('toast-container'); if(!container) return; const toast = document.createElement('div'); toast.className = 'achievement-toast'; toast.innerHTML = `<div class="ach-icon">${icon}</div><div class="ach-text"><h4>Succès Déverrouillé</h4><p><strong>${title}</strong> : ${desc}</p></div>`; container.appendChild(toast); setTimeout(() => toast.classList.add('show'), 100); setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 500); }, 5000); }
+        function checkAchievements() { document.querySelectorAll('.ach-item').forEach(el => { const id = el.id.split('-')[1]; if(sessionStorage.getItem('ach_' + id)) el.classList.add('unlocked'); }); } 
+        const achModal = document.getElementById('achievements-modal'); document.getElementById('achievementsBtn').addEventListener('click', () => { checkAchievements(); achModal.classList.add('show'); }); document.getElementById('closeModal').addEventListener('click', () => { achModal.classList.remove('show'); });
+        const themeToggle = document.getElementById('themeToggle'); themeToggle.addEventListener('click', () => { document.body.classList.toggle('light-mode'); themeToggle.innerText = document.body.classList.contains('light-mode') ? '☀️' : '🌙'; unlockAchievement('theme', 'Oiseau de Nuit', 'Tu as changé le thème du site.', '🌗'); }); 
+        const discretionBtn = document.getElementById('discretionBtn'); if(discretionBtn) discretionBtn.addEventListener('click', () => { document.body.classList.toggle('discretion-mode'); }); const secretBtn = document.querySelector('.secret-btn'); if (secretBtn) secretBtn.addEventListener('dblclick', () => document.body.classList.toggle('cyberpunk-mode'));
+        const secretText = document.querySelector('.secret-shinobi'); if(secretText) { secretText.addEventListener('mouseenter', () => { unlockAchievement('ninja', 'Maître Shinobi', 'Tu as lu le texte secret.', '🥷'); }); }
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'b', 'a']; let konamiIndex = 0; document.addEventListener('keydown', (e) => { if (e.key === konamiCode[konamiIndex] || e.key.toLowerCase() === konamiCode[konamiIndex]) { konamiIndex++; if (konamiIndex === konamiCode.length) { unlockAchievement('gamer', 'Gamer Légendaire', 'Le code secret est activé !', '🎮'); const popup = document.createElement('div'); popup.className = 'konami-popup show'; popup.innerHTML = `<h2>MAITRISE ABSOLUE !</h2><p>Tu as débloqué le secret du Gamer.</p><img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Cat Hacker">`; document.body.appendChild(popup); setTimeout(() => { popup.classList.remove('show'); setTimeout(() => popup.remove(), 500); }, 5000); konamiIndex = 0; } } else { konamiIndex = 0; } });
+        // --- CODE JS POUR LA MUSIQUE INVISIBLE (BING JAPON FÉODAL) ---
+        const musicBtn = document.getElementById('musicToggle'); 
+        let isPlaying = false; 
+        if(musicBtn) { 
+            musicBtn.addEventListener('click', () => { 
+                const ytContainer = document.getElementById('yt-container'); 
+                if(isPlaying) { 
+                    ytContainer.innerHTML = ''; 
+                    musicBtn.innerText = '🔇 OFF'; 
+                } else { 
+                    // On intègre la page Bing avec ta musique japonaise, rendue 100% invisible
+                    ytContainer.innerHTML = '<iframe width="400" height="400" src="https://www.bing.com/videos/riverview/relatedvideo?q=japon+f%C3%A9odal+musique+no+cpoyright&&mid=01F7F317581C105EFD7801F7F317581C105EFD78&FORM=VRDGAR&autoplay=1" frameborder="0" allow="autoplay" style="position: absolute; left: -9999px; top: -9999px; visibility: hidden;"></iframe>'; 
+                    musicBtn.innerText = '🔊 ON'; 
+                    unlockAchievement('musique', 'Mélomane', 'Tu as activé la musique.', '🎧'); 
+                } 
+                isPlaying = !isPlaying; 
+            }); 
+        }
+        // --- EASTER EGG : APPRENTI HACKER ---
+        console.log("%c STOP ! ✋ ", "color: red; font-size: 40px; font-weight: bold; -webkit-text-stroke: 1px black;");
+        console.log("%cSi tu lis ceci, c'est que tu inspectes mon code... Pas mal ! ", "color: #00ff00; font-size: 16px; font-family: monospace;");
+        console.log("%cUn succès vient d'être déverrouillé sur le site. ", "color: white; background: #222; padding: 5px;");
+
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && (event.key === 'I' || event.key === 'i'))) {
+                setTimeout(() => {
+                    if (typeof unlockAchievement === 'function') {
+                        unlockAchievement('hacker', 'Apprenti Hacker', 'Tu as découvert le message secret dans la console.', '💻');
+                    }
+                }, 500); 
+            }
+        });
+    </script>
+</body>
+</html>
